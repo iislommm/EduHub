@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "ZxWcoFhDIm7CepwdU+UueM7qh/mi7Lut0GGtcK9QEZQ=",
+  "Source": "EduHub.Server",
+  "BasePath": "_content/EduHub.Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
