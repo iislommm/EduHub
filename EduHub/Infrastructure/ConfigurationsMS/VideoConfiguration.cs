@@ -6,10 +6,8 @@ public class VideoConfiguration : IEntityTypeConfiguration<Video>
 {
     public void Configure(EntityTypeBuilder<Video> builder)
     {
-        // Primary Key
         builder.HasKey(v => v.VideoId);
 
-        // Properties
         builder.Property(v => v.Name)
             .IsRequired()
             .HasMaxLength(150);
@@ -23,9 +21,6 @@ public class VideoConfiguration : IEntityTypeConfiguration<Video>
         builder.Property(v => v.Views)
             .IsRequired();
 
-        builder.Property(v => v.Comments)
-            .HasMaxLength(2000); // You can change this as needed
-
         builder.Property(v => v.Duration)
             .IsRequired();
 
@@ -33,7 +28,9 @@ public class VideoConfiguration : IEntityTypeConfiguration<Video>
             .IsRequired()
             .HasMaxLength(255);
 
-        // Relationships
+        builder.Property(v => v.Price)
+            .IsRequired();
+
         builder.HasOne(v => v.Category)
             .WithMany(c => c.Videos)
             .HasForeignKey(v => v.CategoryId)
@@ -44,7 +41,16 @@ public class VideoConfiguration : IEntityTypeConfiguration<Video>
             .HasForeignKey(v => v.InstructorId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Table name
+        builder.HasMany(v => v.Comments)
+            .WithOne(c => c.Video)
+            .HasForeignKey(c => c.VideoId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(v => v.Likes)
+            .WithOne(l => l.Video)
+            .HasForeignKey(l => l.VideoId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         builder.ToTable("Videos");
     }
 }

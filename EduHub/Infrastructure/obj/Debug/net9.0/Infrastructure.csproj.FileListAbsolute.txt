@@ -19,3 +19,4 @@ C:\Users\user\Desktop\EduHub\EduHub\EduHub\Infrastructure\obj\Debug\net9.0\refin
 C:\Users\user\Desktop\EduHub\EduHub\EduHub\Infrastructure\obj\Debug\net9.0\Infrastructure.pdb
 C:\Users\user\Desktop\EduHub\EduHub\EduHub\Infrastructure\obj\Debug\net9.0\Infrastructure.genruntimeconfig.cache
 C:\Users\user\Desktop\EduHub\EduHub\EduHub\Infrastructure\obj\Debug\net9.0\ref\Infrastructure.dll
+C:\Users\user\Desktop\EduHub\EduHub\EduHub\Infrastructure\obj\Debug\net9.0\Infrastructure.sourcelink.json

@@ -9,3 +9,4 @@ C:\Users\user\Desktop\EduHub\EduHub\EduHub\Core\obj\Debug\net9.0\Core.dll
 C:\Users\user\Desktop\EduHub\EduHub\EduHub\Core\obj\Debug\net9.0\refint\Core.dll
 C:\Users\user\Desktop\EduHub\EduHub\EduHub\Core\obj\Debug\net9.0\Core.pdb
 C:\Users\user\Desktop\EduHub\EduHub\EduHub\Core\obj\Debug\net9.0\ref\Core.dll
+C:\Users\user\Desktop\EduHub\EduHub\EduHub\Core\obj\Debug\net9.0\Core.sourcelink.json

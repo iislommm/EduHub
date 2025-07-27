@@ -1,21 +1,16 @@
-﻿using Application.Repositories;
-using Application.RepositoryContracts;
+﻿using Application.Abstractions.Repositories;
+using Application.Repositories;
 using Domain.Entities;
-using Infrastructure.Persistence.Data;
+using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories;
 
-public class CategoryRepository : ICategoryRepository
+public class CategoryRepository(AppDbContextMS appDbContext) : ICategoryRepository
 {
-    private readonly AppDbContextMS _context;
+    private readonly AppDbContextMS _context = appDbContext;
 
-    public CategoryRepository(AppDbContext context)
-    {
-        _context = context;
-    }
-
-    public async Task AddAsync(Category category)
+    public async Task InsertCategoryAsync(Category category)
     {
         await _context.Categories.AddAsync(category);
         await _context.SaveChangesAsync();
@@ -31,23 +26,23 @@ public class CategoryRepository : ICategoryRepository
         }
     }
 
-    public async Task<IEnumerable<Category>> GetAllAsync()
+    public async Task<IEnumerable<Category>> SelectAllAsync()
     {
         return await _context.Categories.ToListAsync();
     }
 
-    public async Task<Category?> GetByIdAsync(long id)
+    public async Task<Category?> SelectByIdAsync(long id)
     {
         return await _context.Categories.FindAsync(id);
     }
 
-    public async Task<Category?> GetByNameAsync(string name)
+    public async Task<Category?> SelectCategoryByNameAsync(string name)
     {
         return await _context.Categories
             .FirstOrDefaultAsync(c => c.Name.ToLower() == name.ToLower());
     }
 
-    public async Task<IEnumerable<Category>> GetWithVideosAsync()
+    public async Task<IEnumerable<Category>> SelectWithVideosAsync()
     {
         return await _context.Categories
             .Include(c => c.Videos)

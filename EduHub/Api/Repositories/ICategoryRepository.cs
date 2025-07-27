@@ -4,13 +4,12 @@ namespace Application.Repositories;
 
 public interface ICategoryRepository
 {
-    Task<Category?> GetByIdAsync(long id);
-    Task<Category?> GetByNameAsync(string name);
-    Task<IEnumerable<Category>> GetAllAsync();
-    Task<IEnumerable<Category>> GetWithVideosAsync();
-    Task AddAsync(Category category);
+    Task<Category?> SelectByIdAsync(long id);
+    Task<Category?> SelectCategoryByNameAsync(string name);
+    Task<IEnumerable<Category>> SelectAllAsync();
+    Task<IEnumerable<Category>> SelectWithVideosAsync();
+    Task InsertCategoryAsync(Category category);
     Task UpdateAsync(Category category);
     Task DeleteAsync(long id);
-
 }
     

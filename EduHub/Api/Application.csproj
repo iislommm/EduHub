@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\Pagenation\" />
     <Folder Include="FluentValidations\" />
   </ItemGroup>
 

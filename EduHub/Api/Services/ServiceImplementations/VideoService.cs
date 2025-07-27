@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ServiceImplementations
 {
-    public class EduService : IEduService
+    public class VideoService : IVdieoService
     {
 
     }

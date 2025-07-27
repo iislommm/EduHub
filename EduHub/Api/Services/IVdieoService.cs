@@ -1,5 +1,5 @@
 ﻿namespace Application.Services;
 
-public interface IEduService
+public interface IVdieoService
 {
 }

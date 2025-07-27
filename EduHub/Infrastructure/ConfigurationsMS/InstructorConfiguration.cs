@@ -6,10 +6,9 @@ public class InstructorConfiguration : IEntityTypeConfiguration<Instructor>
 {
     public void Configure(EntityTypeBuilder<Instructor> builder)
     {
-        // Primary Key
-        builder.HasKey(i => i.Id);
 
-        // Properties
+        builder.HasKey(i => i.InstructorId);
+
         builder.Property(i => i.FullName)
             .IsRequired()
             .HasMaxLength(100);
@@ -19,7 +18,7 @@ public class InstructorConfiguration : IEntityTypeConfiguration<Instructor>
             .HasMaxLength(150);
 
         builder.Property(i => i.Bio)
-            .HasMaxLength(1000); // Optional, can be nullable
+            .HasMaxLength(1000); 
 
         builder.Property(i => i.ProfileImageUrl)
             .HasMaxLength(255);
@@ -30,14 +29,12 @@ public class InstructorConfiguration : IEntityTypeConfiguration<Instructor>
         builder.Property(i => i.RegisteredAt)
             .IsRequired();
 
-        // Relationships
         builder.HasMany(i => i.Videos)
             .WithOne(v => v.Instructor)
             .HasForeignKey(v => v.InstructorId)
             .OnDelete(DeleteBehavior.Cascade);
 
 
-        // Table name
         builder.ToTable("Instructors");
     }
 }
