@@ -15,10 +15,10 @@ public class LikeConfiguration : IEntityTypeConfiguration<Like>
         builder.Property(l => l.LikedAt)
             .IsRequired();
 
-        builder.HasOne(l => l.User)
-            .WithMany()
-            .HasForeignKey(l => l.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+        //builder.HasOne(l => l.User)
+        //    .WithMany()
+        //    .HasForeignKey(l => l.CreatorId)
+        //    .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(l => l.Video)
             .WithMany(v => v.Likes)

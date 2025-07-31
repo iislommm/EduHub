@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Persistance.Migrations.MigrationsMS
 {
     [DbContext(typeof(AppDbContextMS))]
-    [Migration("20250721121535_InitialCreationMS")]
-    partial class InitialCreationMS
+    [Migration("20250730062028_CommentAndLikeAdded")]
+    partial class CommentAndLikeAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,34 @@ namespace Infrastructure.Persistance.Migrations.MigrationsMS
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Comment", b =>
+                {
+                    b.Property<long>("CommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("CommentId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("VideoId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("VideoId");
+
+                    b.ToTable("Comments");
+                });
 
             modelBuilder.Entity("Domain.Entities.Category", b =>
                 {
@@ -60,9 +88,8 @@ namespace Infrastructure.Persistance.Migrations.MigrationsMS
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Comments")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("CommentId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -71,10 +98,10 @@ namespace Infrastructure.Persistance.Migrations.MigrationsMS
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");
 
-                    b.Property<int>("InstructorId")
-                        .HasColumnType("int");
+                    b.Property<long>("InstructorId")
+                        .HasColumnType("bigint");
 
-                    b.Property<long>("InstructorId1")
+                    b.Property<long>("LikeId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("MB")
@@ -83,6 +110,9 @@ namespace Infrastructure.Persistance.Migrations.MigrationsMS
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("VideoUrl")
                         .IsRequired()
@@ -95,18 +125,18 @@ namespace Infrastructure.Persistance.Migrations.MigrationsMS
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("InstructorId1");
+                    b.HasIndex("InstructorId");
 
                     b.ToTable("Videos");
                 });
 
             modelBuilder.Entity("Instructor", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("InstructorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("InstructorId"));
 
                     b.Property<string>("Bio")
                         .IsRequired()
@@ -134,9 +164,44 @@ namespace Infrastructure.Persistance.Migrations.MigrationsMS
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("Id");
+                    b.HasKey("InstructorId");
 
                     b.ToTable("Instructors");
+                });
+
+            modelBuilder.Entity("Like", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("LikedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("VideoId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VideoId");
+
+                    b.ToTable("Likes");
+                });
+
+            modelBuilder.Entity("Comment", b =>
+                {
+                    b.HasOne("Domain.Entities.Video", "Video")
+                        .WithMany("Comments")
+                        .HasForeignKey("VideoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Video");
                 });
 
             modelBuilder.Entity("Domain.Entities.Video", b =>
@@ -149,7 +214,7 @@ namespace Infrastructure.Persistance.Migrations.MigrationsMS
 
                     b.HasOne("Instructor", "Instructor")
                         .WithMany("Videos")
-                        .HasForeignKey("InstructorId1")
+                        .HasForeignKey("InstructorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -158,9 +223,27 @@ namespace Infrastructure.Persistance.Migrations.MigrationsMS
                     b.Navigation("Instructor");
                 });
 
+            modelBuilder.Entity("Like", b =>
+                {
+                    b.HasOne("Domain.Entities.Video", "Video")
+                        .WithMany("Likes")
+                        .HasForeignKey("VideoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Video");
+                });
+
             modelBuilder.Entity("Domain.Entities.Category", b =>
                 {
                     b.Navigation("Videos");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Video", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Likes");
                 });
 
             modelBuilder.Entity("Instructor", b =>

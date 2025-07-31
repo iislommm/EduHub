@@ -4,7 +4,7 @@ namespace Application.Mappers;
 
 public static class VideoMapper
 {
-    public static Video ToEntity(VideoCreateDto dto)
+    public static Video ToVideoEntity(VideoCreateDto dto)
     {
         return new Video
         {
@@ -16,13 +16,13 @@ public static class VideoMapper
             Duration = dto.Duration,
             VideoUrl = dto.VideoUrl,
             CategoryId = dto.CategoryId,
-            InstructorId = dto.InstructorId
+            ChannelId = dto.InstructorId
         };
     }
 
-    public static VideoDto ToDto(Video video)
+    public static VideoGetDto ToVideoGetDto(Video video)
     {
-        return new VideoDto
+        return new VideoGetDto
         {
             VideoId = video.VideoId,
             Name = video.Name,
@@ -32,8 +32,9 @@ public static class VideoMapper
             Views = video.Views,
             Duration = video.Duration,
             VideoUrl = video.VideoUrl,
-            CategoryId = video.CategoryId,
-            InstructorId = video.InstructorId
+            Category = video.Category.Name,
+            Comments = video.Comments.Select(CommentMapper.ToCommentDto).ToList(),
+            ChannelName = video.Channel.ChannelName
         };
     }
 
@@ -41,10 +42,6 @@ public static class VideoMapper
     {
         video.Name = dto.Name;
         video.Description = dto.Description;
-        video.MB = dto.MB;
         video.Price = dto.Price;
-        video.Duration = dto.Duration;
-        video.VideoUrl = dto.VideoUrl;
-        // Views va CategoryId, InstructorId odatda update qilinmaydi
     }
 }

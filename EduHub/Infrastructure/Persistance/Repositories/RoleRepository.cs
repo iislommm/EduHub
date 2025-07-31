@@ -5,9 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistance.Repositories;
 
-public class RoleRepository(AppDbContextPS appDbContext) : IRoleRepository
+public class RoleRepository(AppDbContextPS _context) : IRoleRepository
 {
-    private readonly AppDbContextPS _context = appDbContext;
 
     public async Task<long> InsertUserRoleAsync(Role userRole)
     {
@@ -34,10 +33,6 @@ public class RoleRepository(AppDbContextPS appDbContext) : IRoleRepository
             .ToListAsync();
     }
 
-    public async Task<Role?> SelectUserRoleByIdAsync(long userRoleId)
-    {
-        return await _context.UserRoles.FindAsync(userRoleId);
-    }
 
     public async Task<Role?> SelectUserRoleByRoleName(string userRoleName)
     {
@@ -49,5 +44,15 @@ public class RoleRepository(AppDbContextPS appDbContext) : IRoleRepository
     {
         _context.UserRoles.Update(userRole);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<long> SelectRoleIdByNameAsync(string roleName)
+    {
+        var role =await  _context.UserRoles.FirstOrDefaultAsync(x=>x.Name == roleName);
+        if(role is null)
+        {
+            throw new Exception();
+        }
+        return role.RoleId;
     }
 }

@@ -10,11 +10,13 @@ public class CategoryRepository(AppDbContextMS appDbContext) : ICategoryReposito
 {
     private readonly AppDbContextMS _context = appDbContext;
 
-    public async Task InsertCategoryAsync(Category category)
+    public async Task<long> InsertCategoryAsync(Category category)
     {
         await _context.Categories.AddAsync(category);
         await _context.SaveChangesAsync();
+        return category.Id;
     }
+
 
     public async Task DeleteAsync(long id)
     {

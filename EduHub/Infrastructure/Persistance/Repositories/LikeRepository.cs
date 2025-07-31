@@ -3,6 +3,7 @@ using Domain.Entities;
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Core.Errors;
+using Azure.Identity;
 
 namespace Infrastructure.Persistance.Repositories;
 
@@ -29,7 +30,7 @@ public class LikeRepository(AppDbContextMS context) : ILikeRepository
     {
         return await context.Likes
             .Where(l => l.VideoId == videoId)
-            .Include(l => l.User)
+            //.Include(l => l.User)
             .ToListAsync();
     }
 
@@ -40,9 +41,21 @@ public class LikeRepository(AppDbContextMS context) : ILikeRepository
             .Include(l => l.Video)
             .ToListAsync();
     }
-
-    public async Task<bool> ExistsAsync(long userId, long videoId)
+    public async Task<Like?> SelectLikeByIdAsync(long likeId)
     {
-        return await context.Likes.AnyAsync(l => l.UserId == userId && l.VideoId == videoId);
+        return await context.Likes
+            .FirstOrDefaultAsync(like => like.Id == likeId);
+    }
+
+    public async Task<List<Video>> GetLikesByUserId(long userId)
+    {
+        List<Like> likes =await context.Likes.Include(x=>x.Video).Where(x => x.UserId == userId).ToListAsync();
+        return likes.Select(x => x.Video).ToList();
+
+    }
+
+    public async Task<bool> IsLiked(long userId,long videoId)
+    {
+        return await context.Likes.AnyAsync(x => x.UserId == userId && x.VideoId == videoId);
     }
 }

@@ -15,9 +15,6 @@ public class CategoryConfiguration
             .IsRequired()
             .HasMaxLength(100);
 
-        builder.Property(c => c.IconUrl)
-            .IsRequired()
-            .HasMaxLength(255);
 
         builder.Property(c => c.CreatedAt)
             .IsRequired();

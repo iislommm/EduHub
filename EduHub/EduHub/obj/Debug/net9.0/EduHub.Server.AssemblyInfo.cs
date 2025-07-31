@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EduHub.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+125e2b421233db1c26950e45c99e8be9d43ede52")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f71c0401284f144197f49c1cbc915109b33a4189")]
 [assembly: System.Reflection.AssemblyProductAttribute("EduHub.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EduHub.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

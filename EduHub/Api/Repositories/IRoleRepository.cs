@@ -6,9 +6,9 @@ public interface IRoleRepository
 {
     Task<ICollection<Role>> SelectAllRolesAsync();
     Task<ICollection<User>> SelectAllUsersByRoleNameAsync(string roleName);
-    Task<Role> SelectUserRoleByRoleName(string userRoleName);
+    Task<Role> SelectUserRoleByRoleNameAsync(string userRoleName);
     Task<long> InsertUserRoleAsync(Role userRole);
-    Task<Role> SelectUserRoleByIdAsync(long userRoleId);
+    Task<long> SelectRoleIdByNameAsync(string roleName);
     Task DeleteUserRoleAsync(Role userRole);
     Task UpdateUserRoleAsync(Role userRole);    
 }

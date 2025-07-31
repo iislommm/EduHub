@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Persistance.Migrations.MigrationsPS
 {
     /// <inheritdoc />
-    public partial class InitialCreationPSUserName : Migration
+    public partial class CommentAndLikeAdded : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,13 +32,14 @@ namespace Infrastructure.Persistance.Migrations.MigrationsPS
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    SecondName = table.Column<string>(type: "text", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
+                    FirstName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    SecondName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    Email = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
                     UserName = table.Column<string>(type: "text", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: false),
-                    Age = table.Column<int>(type: "integer", nullable: false),
+                    PasswordHash = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    PasswordSalt = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Age = table.Column<int>(type: "integer", maxLength: 120, nullable: false),
                     RoleId = table.Column<long>(type: "bigint", nullable: false),
                     InstructorId = table.Column<long>(type: "bigint", nullable: false)
                 },

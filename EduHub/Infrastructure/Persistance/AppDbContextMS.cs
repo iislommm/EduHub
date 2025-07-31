@@ -11,7 +11,7 @@ public class AppDbContextMS : DbContext
     }
 
     public DbSet<Video> Videos { get; set; }
-    public DbSet<Instructor> Instructors { get; set; }
+    public DbSet<Channel> Channels { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Comment> Comments { get; set; }
     public DbSet<Like> Likes { get; set; }

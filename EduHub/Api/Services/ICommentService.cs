@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Dtos.Comment;
 
-namespace Application.Services
+namespace Application.ServiceContracts;
+
+public interface ICommentService
 {
-    internal class ICommentService
-    {
-    }
+    Task<long> AddCommentAsync(CommentCreateDto dto);
+    Task<IEnumerable<CommentDto>> GetCommentsByVideoIdAsync(long videoId);
+    Task DeleteCommentAsync(long commentId);
 }

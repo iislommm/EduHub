@@ -8,7 +8,7 @@ public interface ICategoryRepository
     Task<Category?> SelectCategoryByNameAsync(string name);
     Task<IEnumerable<Category>> SelectAllAsync();
     Task<IEnumerable<Category>> SelectWithVideosAsync();
-    Task InsertCategoryAsync(Category category);
+    Task <long>InsertCategoryAsync(Category category);
     Task UpdateAsync(Category category);
     Task DeleteAsync(long id);
 }

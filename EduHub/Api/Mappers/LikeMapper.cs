@@ -2,7 +2,7 @@
 
 public static class LikeMapper
 {
-    public static Like ToEntity(LikeCreateDto dto)
+    public static Like ToLikeEntity(LikeCreateDto dto)
     {
         return new Like
         {
@@ -12,12 +12,12 @@ public static class LikeMapper
         };
     }
 
-    public static LikeDto ToDto(Like like)
+    public static LikeDto ToLikeDto(Like like)
     {
         return new LikeDto
         {
             Id = like.Id,
-            UserFirstName = like.User.FirstName,
+            //UserFirstName = like.User.FirstName,
             LikedAt = like.LikedAt
         };
     }

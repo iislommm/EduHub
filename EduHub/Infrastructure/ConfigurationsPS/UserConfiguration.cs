@@ -1,16 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.ConfigurationsPS;
 
-public class UserConfiguration
+public class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        // Primary Key
         builder.HasKey(u => u.Id);
 
-        // Properties
+
         builder.Property(u => u.Id)
             .IsRequired();
 
@@ -30,6 +30,10 @@ public class UserConfiguration
             .IsRequired()
             .HasMaxLength(255);
 
+        builder.Property(u => u.PasswordSalt) 
+            .IsRequired()
+            .HasMaxLength(255);
+
         builder.Property(u => u.PhoneNumber)
               .IsRequired()
               .HasMaxLength(20);
@@ -38,19 +42,13 @@ public class UserConfiguration
               .IsRequired()
               .HasMaxLength(120);
 
-        builder.Property(u => u.Role)
-            .IsRequired()
-            .HasMaxLength(50);
 
-        // 1:1 relationship with Instructor (User-Instructor)
 
-        // 1:many relationship with RefreshTokens
         builder.HasMany(u => u.RefreshTokens)
             .WithOne(rt => rt.User)
             .HasForeignKey(rt => rt.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Table name if needed
         builder.ToTable("Users");
     }
 }

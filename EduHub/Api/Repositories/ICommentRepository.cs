@@ -4,9 +4,10 @@ namespace Application.Repositories;
 
 public interface ICommentRepository
 {
-    Task<long> InsertAsync(Comment comment);
-    Task DeleteAsync(long commentId);
-    Task<IEnumerable<Comment>> SelectByVideoIdAsync(long videoId);
-    Task<IEnumerable<Comment>> SelectByUserIdAsync(long userId);
-    Task<Comment?> SelectByIdAsync(long commentId);
+    Task<long> InsertCommentAsync(Comment comment);
+    Task DeleteCommentAsync(long commentId);
+    Task<IEnumerable<Comment>> SelectCommentByVideoIdAsync(long videoId);
+    Task<IEnumerable<Comment>> SelectCommentByUserIdAsync(long userId);
+    Task<Comment?> SelectCommentByIdAsync(long commentId);
+  
 }

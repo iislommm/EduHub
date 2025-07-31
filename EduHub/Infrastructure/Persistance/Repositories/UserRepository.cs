@@ -17,6 +17,10 @@ public class UserRepository(AppDbContextPS appDbContext) : IUserRepository
     {
         return await appDbContext.Users.ToListAsync();
     }
+    public async Task<User?> SelectByEmailAsync(string email)
+    {
+        return await appDbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+    }
 
     public async Task<long> InsertUserAsync(User user)
     {

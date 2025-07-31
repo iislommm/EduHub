@@ -18,7 +18,13 @@ public class RefreshTokenRepository(AppDbContextPS appDbContext) : IRefreshToken
     public async Task RemoveRefreshTokenAsync(string token)
     {
         var refreshToken = await appDbContext.RefreshTokens.FirstOrDefaultAsync(rf => rf.Token == token);
+        if (refreshToken is null) return;
+
+        refreshToken.IsRevoked = true;
+        appDbContext.RefreshTokens.Update(refreshToken);
+        await appDbContext.SaveChangesAsync();
     }
+
 
     public async Task<RefreshToken?> SelectActiveTokenByUserIdAsync(long userId)
     {

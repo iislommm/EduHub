@@ -35,7 +35,7 @@ public class VideoRepository(AppDbContextMS appDbContext) : IVideoRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<Video> SelectByIdAsync(long videoId)
+    public async Task<Video> SelectVideoByIdAsync(long videoId)
     {
         var video = await _context.Videos.FindAsync(videoId);
         if (video is null)
@@ -44,7 +44,7 @@ public class VideoRepository(AppDbContextMS appDbContext) : IVideoRepository
         return video;
     }
 
-    public async Task<Video> SelectByNameAsync(string name)
+    public async Task<Video> SelectVideoByNameAsync(string name)
     {
         var video = await _context.Videos
             .FirstOrDefaultAsync(v => v.Name.ToLower() == name.ToLower());
@@ -55,22 +55,22 @@ public class VideoRepository(AppDbContextMS appDbContext) : IVideoRepository
         return video;
     }
 
-    public async Task<IEnumerable<Video>> SelectAllAsync()
+    public async Task<IEnumerable<Video>> SelectAllVideosAsync()
     {
         return await _context.Videos.ToListAsync();
     }
 
-    public async Task<IEnumerable<Video>> SelectByCategoryIdAsync(long categoryId)
+    public async Task<IEnumerable<Video>> SelectVideosByCategoryIdAsync(long categoryId)
     {
         return await _context.Videos
             .Where(v => v.CategoryId == categoryId)
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Video>> SelectByInstructorIdAsync(int instructorId)
+    public async Task<IEnumerable<Video>> SelectVideoByInstructorIdAsync(int instructorId)
     {
         return await _context.Videos
-            .Where(v => v.InstructorId == instructorId)
+            .Where(v => v.ChannelId == instructorId)
             .ToListAsync();
     }
 
@@ -95,10 +95,10 @@ public class VideoRepository(AppDbContextMS appDbContext) : IVideoRepository
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Video>> SelectWithInstructorAsync()
+    public async Task<IEnumerable<Video>> SelectVideoWithInstructorAsync()
     {
         return await _context.Videos
-            .Include(v => v.Instructor)
+            .Include(v => v.Channel)
             .ToListAsync();
     }
 
@@ -110,5 +110,10 @@ public class VideoRepository(AppDbContextMS appDbContext) : IVideoRepository
 
         video.Views++;
         await _context.SaveChangesAsync();
+    }
+
+    public Task<IEnumerable<Video>> SelectVideoByInstructorIdAsync(long instructorId)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -1,11 +1,11 @@
-﻿namespace Application.Services;
+﻿using Application.Dtos;
+
+namespace Application.ServiceContracts;
 
 public interface IAuthService
 {
-
+    Task<LoginResponseDto> LoginUserAsync(UserLoginDto dto);
+    Task<long> SignUpUserAsync(SignUpDto dto);
+    Task<LoginResponseDto> RefreshTokenAsync(RefreshRequestDto request);
+    Task LogoutAsync(string refreshToken);
 }
-
-
-service uchun oldindan ochib quyilgan interfacelar - IAuthService, ICategoryService,ICommentService, 
-
-entities - category,comment, instructor, likes, refreshtokens, roles, users, videos, 

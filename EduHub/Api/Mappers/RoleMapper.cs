@@ -5,7 +5,7 @@ namespace Application.Mappers;
 
 public static class RoleMapper
 {
-    public static Role ToEntity(RoleCreateDto dto)
+    public static Role ToRoleEntity(RoleCreateDto dto)
     {
         return new Role
         {
@@ -14,7 +14,7 @@ public static class RoleMapper
         };
     }
 
-    public static RoleDto ToDto(Role role)
+    public static RoleDto ToRoleDto(Role role)
     {
         return new RoleDto
         {

@@ -5,7 +5,7 @@ namespace Application.Mappers;
 
 public static class CommentMapper
 {
-    public static Comment ToEntity(CommentCreateDto dto)
+    public static Comment ToCommentEntity(CommentCreateDto dto)
     {
         return new Comment
         {
@@ -16,12 +16,12 @@ public static class CommentMapper
         };
     }
 
-    public static CommentDto ToDto(Comment comment)
+    public static CommentDto ToCommentDto(Comment comment)
     {
         return new CommentDto
         {
-            Id = comment.UserId,
-            UserFirstName = comment.User.FirstName,
+            Id = comment.CommentId,
+            //UserFirstName = comment.User.FirstName,
             Text = comment.Text,
             CreatedAt = comment.CreatedAt
         };

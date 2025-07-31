@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Persistance.Migrations.MigrationsPS
 {
     [DbContext(typeof(AppDbContextPS))]
-    [Migration("20250721124725_InitialCreationPSUserName")]
-    partial class InitialCreationPSUserName
+    [Migration("20250730062039_CommentAndLikeAdded")]
+    partial class CommentAndLikeAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,33 +83,44 @@ namespace Infrastructure.Persistance.Migrations.MigrationsPS
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<int>("Age")
+                        .HasMaxLength(120)
                         .HasColumnType("integer");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<long>("InstructorId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<string>("PasswordSalt")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<long>("RoleId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("SecondName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -119,7 +130,7 @@ namespace Infrastructure.Persistance.Migrations.MigrationsPS
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.RefreshToken", b =>

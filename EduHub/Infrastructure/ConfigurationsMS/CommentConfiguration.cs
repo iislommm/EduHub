@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Persistance.Configurations;
@@ -19,10 +18,10 @@ public class CommentConfiguration : IEntityTypeConfiguration<Comment>
         builder.Property(c => c.CreatedAt)
             .IsRequired();
 
-        builder.HasOne(c => c.User)
-            .WithMany()
-            .HasForeignKey(c => c.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+        //builder.HasOne(c => c.User)
+        //    .WithMany()
+        //    .HasForeignKey(c => c.CreatorId)
+        //    .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(c => c.Video)
             .WithMany(v => v.Comments)

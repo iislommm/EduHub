@@ -1,6 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace Domain.Entities;
+﻿namespace Domain.Entities;
 
 public class Video
 {
@@ -14,11 +12,9 @@ public class Video
     public string VideoUrl { get; set; }
     public long CategoryId { get; set; }
     public Category Category { get; set; }
-    public long InstructorId { get; set; }
-    public Instructor Instructor { get; set; }
-    public long LikeId { get; set; }
-    public ICollection<Like> Likes { get; set; } = new List<Like>();
-    public long CommentId { get; set; }
-    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+    public long ChannelId { get; set; }
+    public Channel Channel { get; set; }
+    public ICollection<Like> Likes { get; set; }
+    public ICollection<Comment> Comments { get; set; }
 
 }

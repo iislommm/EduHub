@@ -36,9 +36,9 @@ public class VideoConfiguration : IEntityTypeConfiguration<Video>
             .HasForeignKey(v => v.CategoryId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasOne(v => v.Instructor)
+        builder.HasOne(v => v.Channel)
             .WithMany(i => i.Videos)
-            .HasForeignKey(v => v.InstructorId)
+            .HasForeignKey(v => v.ChannelId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(v => v.Comments)

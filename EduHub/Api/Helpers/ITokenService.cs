@@ -5,7 +5,7 @@ namespace Application.Helpers;
 
 public interface ITokenService
 {
-    public string GenerateTokent(VideoGetDto edu);
+    string GenerateTokent(UserGetDto user);
     string GenerateRefreshToken();
     ClaimsPrincipal? GetPrincipalFromExpiredToken(string token);
 }
