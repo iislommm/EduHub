@@ -1,0 +1,242 @@
+<div class="auth-container">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="auth-card">
+          <!-- Header -->
+          <div class="auth-header">
+            <div class="auth-logo">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h2>Join EduHub</h2>
+            <p>Create your account and start learning today</p>
+          </div>
+
+          <!-- Error Alert -->
+          <div class="alert alert-danger" *ngIf="error">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            {{ error }}
+          </div>
+
+          <!-- Signup Form -->
+          <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="auth-form">
+            <!-- Name Row -->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="fas fa-user"></i>
+                    </span>
+                    <input 
+                      type="text" 
+                      id="firstName"
+                      class="form-control" 
+                      formControlName="firstName"
+                      [class.is-invalid]="f['firstName'].invalid && f['firstName'].touched"
+                      placeholder="First name">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="f['firstName'].invalid && f['firstName'].touched">
+                    <div *ngIf="f['firstName'].errors?.['required']">First name is required</div>
+                    <div *ngIf="f['firstName'].errors?.['minlength']">First name must be at least 2 characters</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="secondName">Last Name</label>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="fas fa-user"></i>
+                    </span>
+                    <input 
+                      type="text" 
+                      id="secondName"
+                      class="form-control" 
+                      formControlName="secondName"
+                      [class.is-invalid]="f['secondName'].invalid && f['secondName'].touched"
+                      placeholder="Last name">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="f['secondName'].invalid && f['secondName'].touched">
+                    <div *ngIf="f['secondName'].errors?.['required']">Last name is required</div>
+                    <div *ngIf="f['secondName'].errors?.['minlength']">Last name must be at least 2 characters</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Username -->
+            <div class="form-group">
+              <label for="username">Username</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="fas fa-at"></i>
+                </span>
+                <input 
+                  type="text" 
+                  id="username"
+                  class="form-control" 
+                  formControlName="username"
+                  [class.is-invalid]="f['username'].invalid && f['username'].touched"
+                  placeholder="Choose a username">
+              </div>
+              <div class="invalid-feedback" *ngIf="f['username'].invalid && f['username'].touched">
+                <div *ngIf="f['username'].errors?.['required']">Username is required</div>
+                <div *ngIf="f['username'].errors?.['minlength']">Username must be at least 3 characters</div>
+              </div>
+            </div>
+
+            <!-- Email and Phone Row -->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                    <input 
+                      type="email" 
+                      id="email"
+                      class="form-control" 
+                      formControlName="email"
+                      [class.is-invalid]="f['email'].invalid && f['email'].touched"
+                      placeholder="your@email.com">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="f['email'].invalid && f['email'].touched">
+                    <div *ngIf="f['email'].errors?.['required']">Email is required</div>
+                    <div *ngIf="f['email'].errors?.['email']">Please enter a valid email</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="phoneNumber">Phone Number</label>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="fas fa-phone"></i>
+                    </span>
+                    <input 
+                      type="tel" 
+                      id="phoneNumber"
+                      class="form-control" 
+                      formControlName="phoneNumber"
+                      [class.is-invalid]="f['phoneNumber'].invalid && f['phoneNumber'].touched"
+                      placeholder="+1 (555) 123-4567">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="f['phoneNumber'].invalid && f['phoneNumber'].touched">
+                    <div *ngIf="f['phoneNumber'].errors?.['required']">Phone number is required</div>
+                    <div *ngIf="f['phoneNumber'].errors?.['pattern']">Please enter a valid phone number</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Age -->
+            <div class="form-group">
+              <label for="age">Age</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="fas fa-calendar"></i>
+                </span>
+                <input 
+                  type="number" 
+                  id="age"
+                  class="form-control" 
+                  formControlName="age"
+                  [class.is-invalid]="f['age'].invalid && f['age'].touched"
+                  placeholder="Enter your age"
+                  min="13"
+                  max="120">
+              </div>
+              <div class="invalid-feedback" *ngIf="f['age'].invalid && f['age'].touched">
+                <div *ngIf="f['age'].errors?.['required']">Age is required</div>
+                <div *ngIf="f['age'].errors?.['min']">You must be at least 13 years old</div>
+                <div *ngIf="f['age'].errors?.['max']">Please enter a valid age</div>
+              </div>
+            </div>
+
+            <!-- Password Row -->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                    <input 
+                      type="password" 
+                      id="password"
+                      class="form-control" 
+                      formControlName="password"
+                      [class.is-invalid]="f['password'].invalid && f['password'].touched"
+                      placeholder="Create password">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="f['password'].invalid && f['password'].touched">
+                    <div *ngIf="f['password'].errors?.['required']">Password is required</div>
+                    <div *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="confirmPassword">Confirm Password</label>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                    <input 
+                      type="password" 
+                      id="confirmPassword"
+                      class="form-control" 
+                      formControlName="confirmPassword"
+                      [class.is-invalid]="f['confirmPassword'].invalid && f['confirmPassword'].touched"
+                      placeholder="Confirm password">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="f['confirmPassword'].invalid && f['confirmPassword'].touched">
+                    <div *ngIf="f['confirmPassword'].errors?.['required']">Please confirm your password</div>
+                    <div *ngIf="f['confirmPassword'].errors?.['passwordMismatch']">Passwords do not match</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+              type="submit" 
+              class="btn btn-gradient btn-lg w-100"
+              [disabled]="loading || signupForm.invalid">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+              <i *ngIf="!loading" class="fas fa-user-plus me-2"></i>
+              {{ loading ? 'Creating Account...' : 'Create Account' }}
+            </button>
+          </form>
+
+          <!-- Divider -->
+          <div class="auth-divider">
+            <span>or</span>
+          </div>
+
+          <!-- Login Link -->
+          <div class="auth-footer">
+            <p>Already have an account?</p>
+            <button class="btn btn-outline-primary btn-lg w-100" (click)="goToLogin()">
+              <i class="fas fa-sign-in-alt me-2"></i>
+              Sign In
+            </button>
+          </div>
+
+          <!-- Back to Home -->
+          <div class="text-center mt-3">
+            <a routerLink="/" class="text-muted">
+              <i class="fas fa-arrow-left me-1"></i>
+              Back to Home
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

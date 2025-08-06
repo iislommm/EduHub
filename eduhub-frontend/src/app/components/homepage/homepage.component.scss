@@ -1,0 +1,342 @@
+.homepage {
+  min-height: calc(100vh - 80px);
+}
+
+// Hero Section
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4rem 0;
+  margin-bottom: 3rem;
+
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    
+    @media (max-width: 768px) {
+      font-size: 2.5rem;
+    }
+  }
+
+  .hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+    }
+  }
+
+  .hero-description {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .hero-buttons {
+    .btn {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .hero-image {
+    .hero-icon {
+      font-size: 15rem;
+      opacity: 0.8;
+      color: rgba(255, 255, 255, 0.3);
+      
+      @media (max-width: 768px) {
+        font-size: 8rem;
+      }
+    }
+  }
+}
+
+// Welcome Section
+.welcome-section {
+  padding: 2rem 0;
+  background: white;
+  margin-bottom: 2rem;
+
+  h2 {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .lead {
+    color: var(--secondary-color);
+  }
+}
+
+// Filter Section
+.filter-section {
+  margin-bottom: 3rem;
+
+  .card {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-title {
+    color: var(--dark-color);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .search-container {
+    .form-control {
+      border-radius: 8px;
+      padding: 12px 15px;
+      border: 2px solid #e9ecef;
+    }
+  }
+
+  .categories-container {
+    .category-pill {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #e9ecef;
+      border: none;
+      border-radius: 20px;
+      margin: 5px;
+      text-decoration: none;
+      color: #495057;
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      &:hover,
+      &.active {
+        background: var(--gradient-primary);
+        color: white;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+// Featured Section
+.featured-section {
+  padding: 2rem 0;
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .video-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 100%;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .video-thumbnail {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .placeholder-thumbnail {
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 3rem;
+      }
+
+      .video-duration {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+      }
+
+      .video-price {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: var(--gradient-secondary);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+    }
+
+    .video-info {
+      padding: 1.5rem;
+
+      .video-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--dark-color);
+        margin-bottom: 0.5rem;
+        line-height: 1.4;
+      }
+
+      .video-description {
+        color: var(--secondary-color);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+      }
+
+      .video-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.85rem;
+        color: var(--secondary-color);
+
+        .instructor {
+          color: var(--primary-color);
+          cursor: pointer;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: var(--dark-color);
+          }
+        }
+
+        .views {
+          color: var(--secondary-color);
+        }
+      }
+    }
+  }
+}
+
+// No Results
+.no-results {
+  padding: 3rem 0;
+  color: var(--secondary-color);
+
+  i {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+
+  h4 {
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+  }
+}
+
+// CTA Section
+.cta-section {
+  background: #f8f9fa;
+  padding: 3rem 2rem;
+  border-radius: 15px;
+  margin: 2rem 0;
+
+  h4 {
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: var(--secondary-color);
+    margin-bottom: 2rem;
+  }
+}
+
+// Categories Preview
+.categories-preview {
+  padding: 3rem 0;
+  background: #f8f9fa;
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .category-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 100%;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    h5 {
+      color: var(--dark-color);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: var(--secondary-color);
+      margin-bottom: 0;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 2rem 0;
+    text-align: center;
+  }
+
+  .filter-section {
+    .categories-container {
+      .category-pill {
+        display: block;
+        margin: 5px 0;
+        text-align: center;
+      }
+    }
+  }
+
+  .featured-section {
+    .video-card {
+      margin-bottom: 2rem;
+    }
+  }
+}
