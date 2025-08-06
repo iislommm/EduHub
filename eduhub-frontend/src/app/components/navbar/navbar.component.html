@@ -1,0 +1,102 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand" routerLink="/">
+      <i class="fas fa-graduation-cap me-2"></i>
+      EduHub
+    </a>
+
+    <!-- Mobile toggle button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navigation items -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Search bar (center) -->
+      <div class="mx-auto d-none d-lg-block" style="max-width: 400px;">
+        <form (ngSubmit)="onSearch()" class="search-container">
+          <div class="input-group">
+            <input 
+              type="text" 
+              class="form-control search-input" 
+              placeholder="Search courses, instructors..." 
+              [(ngModel)]="searchQuery"
+              name="searchQuery">
+            <button class="btn btn-gradient" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Navigation links -->
+      <ul class="navbar-nav ms-auto align-items-center">
+        <!-- About Us -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about">About Us</a>
+        </li>
+
+        <!-- Contact Us -->
+        <li class="nav-item">
+          <a class="nav-link" href="https://t.me/sayfalseee" target="_blank">
+            <i class="fab fa-telegram me-1"></i>
+            Contact Us
+          </a>
+        </li>
+
+        <!-- Mobile search -->
+        <li class="nav-item d-lg-none">
+          <form (ngSubmit)="onSearch()" class="d-flex mt-2">
+            <input 
+              type="text" 
+              class="form-control me-2" 
+              placeholder="Search..." 
+              [(ngModel)]="searchQuery"
+              name="searchQuery">
+            <button class="btn btn-gradient" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </li>
+
+        <!-- User menu (if logged in) -->
+        <li class="nav-item dropdown" *ngIf="currentUser">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" 
+             href="#" 
+             id="userDropdown" 
+             role="button" 
+             data-bs-toggle="dropdown">
+            <div class="profile-avatar me-2" style="width: 35px; height: 35px; font-size: 0.9rem;">
+              {{ currentUser.firstName.charAt(0) }}{{ currentUser.secondName.charAt(0) }}
+            </div>
+            {{ currentUser.firstName }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" (click)="goToProfile()">
+              <i class="fas fa-user me-2"></i>Profile
+            </a></li>
+            <li *ngIf="isAdmin()"><a class="dropdown-item" (click)="goToAdmin()">
+              <i class="fas fa-cogs me-2"></i>Admin Panel
+            </a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" (click)="logout()">
+              <i class="fas fa-sign-out-alt me-2"></i>Logout
+            </a></li>
+          </ul>
+        </li>
+
+        <!-- Login button (if not logged in) -->
+        <li class="nav-item" *ngIf="!currentUser">
+          <a class="btn btn-gradient" routerLink="/login">
+            <i class="fas fa-sign-in-alt me-1"></i>
+            Login
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Spacer to prevent content from hiding under fixed navbar -->
+<div style="height: 80px;"></div>

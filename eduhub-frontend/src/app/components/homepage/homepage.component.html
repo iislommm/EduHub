@@ -1,0 +1,196 @@
+<div class="homepage">
+  <!-- Hero Section -->
+  <section class="hero-section" *ngIf="!currentUser">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1 class="hero-title">Welcome to EduHub</h1>
+          <p class="hero-subtitle">Learn, Create, and Grow with the best online courses</p>
+          <p class="hero-description">
+            Discover thousands of courses from expert instructors. 
+            Join our community of learners and start your journey today.
+          </p>
+          <div class="hero-buttons">
+            <a routerLink="/signup" class="btn btn-gradient btn-lg me-3">
+              <i class="fas fa-user-plus me-2"></i>Get Started
+            </a>
+            <a routerLink="/login" class="btn btn-outline-primary btn-lg">
+              <i class="fas fa-sign-in-alt me-2"></i>Login
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6 text-center">
+          <div class="hero-image">
+            <i class="fas fa-graduation-cap hero-icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Welcome Back Section (for logged-in users) -->
+  <section class="welcome-section" *ngIf="currentUser">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2>Welcome back, {{ currentUser.firstName }}!</h2>
+          <p class="lead">Continue your learning journey or explore new courses.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search and Filter Section (for logged-in users) -->
+  <section class="filter-section" *ngIf="currentUser">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">What type of videos do you want to watch?</h5>
+              
+              <!-- Search Bar -->
+              <div class="search-container mb-3">
+                <form (ngSubmit)="onSearch()" class="d-flex">
+                  <input 
+                    type="text" 
+                    class="form-control me-2" 
+                    placeholder="Search by name..." 
+                    [(ngModel)]="searchQuery"
+                    name="searchQuery">
+                  <button class="btn btn-gradient" type="submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </form>
+              </div>
+
+              <!-- Categories -->
+              <div class="categories-container">
+                <div class="d-flex flex-wrap align-items-center">
+                  <button 
+                    class="category-pill" 
+                    [class.active]="selectedCategoryId === null"
+                    (click)="clearFilters()">
+                    All Categories
+                  </button>
+                  <button 
+                    *ngFor="let category of categories" 
+                    class="category-pill" 
+                    [class.active]="selectedCategoryId === category.id"
+                    (click)="onCategorySelect(category.id)">
+                    {{ category.name }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Courses Section -->
+  <section class="featured-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="section-title">
+            <span *ngIf="!currentUser">Featured Courses</span>
+            <span *ngIf="currentUser && selectedCategoryId">
+              {{ (categories | filter:'id':selectedCategoryId)?.name || 'Category' }} Videos
+            </span>
+            <span *ngIf="currentUser && !selectedCategoryId && searchQuery">
+              Search Results for "{{ searchQuery }}"
+            </span>
+            <span *ngIf="currentUser && !selectedCategoryId && !searchQuery">
+              All Videos
+            </span>
+          </h3>
+        </div>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div class="row" *ngIf="loading">
+        <div class="col-12 text-center">
+          <div class="spinner"></div>
+          <p>Loading courses...</p>
+        </div>
+      </div>
+
+      <!-- Video Grid -->
+      <div class="row" *ngIf="!loading">
+        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let video of (currentUser ? filteredVideos : featuredVideos)">
+          <div class="video-card" (click)="onVideoClick(video)">
+            <div class="video-thumbnail">
+              <img *ngIf="video.videoUrl" [src]="video.videoUrl" [alt]="video.name" class="img-fluid">
+              <div *ngIf="!video.videoUrl" class="placeholder-thumbnail">
+                <i class="fas fa-play-circle"></i>
+              </div>
+              <div class="video-duration">{{ formatDuration(video.duration) }}</div>
+              <div class="video-price">{{ formatPrice(video.price) }}</div>
+            </div>
+            <div class="video-info">
+              <h5 class="video-title">{{ video.name }}</h5>
+              <p class="video-description">{{ video.description | slice:0:100 }}{{ video.description.length > 100 ? '...' : '' }}</p>
+              <div class="video-meta">
+                <span class="instructor" (click)="onChannelClick(video.instructorId, $event)">
+                  <i class="fas fa-user me-1"></i>{{ video.instructorName }}
+                </span>
+                <span class="views">
+                  <i class="fas fa-eye me-1"></i>{{ video.views }} views
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results -->
+      <div class="row" *ngIf="!loading && filteredVideos.length === 0 && currentUser">
+        <div class="col-12 text-center">
+          <div class="no-results">
+            <i class="fas fa-search fa-3x mb-3"></i>
+            <h4>No videos found</h4>
+            <p>Try adjusting your search criteria or browse different categories.</p>
+            <button class="btn btn-gradient" (click)="clearFilters()">Show All Videos</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action for Non-logged Users -->
+      <div class="row" *ngIf="!currentUser">
+        <div class="col-12 text-center mt-4">
+          <div class="cta-section">
+            <h4>Want to see more?</h4>
+            <p>Join EduHub to access thousands of courses and start learning today!</p>
+            <a routerLink="/signup" class="btn btn-gradient btn-lg">
+              <i class="fas fa-rocket me-2"></i>Join Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Preview Section (for non-logged users) -->
+  <section class="categories-preview" *ngIf="!currentUser">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="section-title">Explore Categories</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4" *ngFor="let category of categories.slice(0, 8)">
+          <div class="category-card" (click)="router.navigate(['/login'])">
+            <div class="category-icon">
+              <i class="fas fa-book"></i>
+            </div>
+            <h5>{{ category.name }}</h5>
+            <p>Explore {{ category.name }} courses</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
